@@ -45,8 +45,22 @@
       登録内容
     </h2>
   </div>
-  {% for data in datas %}
-  <p>{{ data }}</p>
-  {% endfor %}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thread>
+	<tr>
+	  <th>名前</th>
+	  <th>消費期限</th>
+	</tr>
+      </thread>
+      <tbody>
+	{% for data in datas %}
+	<tr>
+	  <td>{{ data }}</td>
+	</tr>
+	{% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}
