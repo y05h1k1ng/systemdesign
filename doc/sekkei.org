@@ -1,0 +1,37 @@
+#+TITLE: 設計仕様書（ソフトウェア）
+#+AUTHOR: Yoshiki KITAMURA
+
+* 災害api
+自作api（Go製）を用いる。
+
+理由
+- 本物のapiを使うとそもそも災害が起きないので、テストがしやすい。
+- 存在するapiは有料であったりする。
+
+** json format
+#+BEGIN_SRC json
+{
+  "city": string,
+  "earthquake": {
+    "level": int,
+    "hoge" : string,
+  },
+  "rain": {
+    "level": int,
+    "hoge" : string,
+  },
+}
+#+END_SRC
+
+* web service
+保管しているものを管理する。
+python製（flask）
+
+| もの           | 消費期限   |
+|----------------+------------|
+| ビスケット     | 2019/11/11 |
+| カップラーメン | 2020/01/24 |
+| なべ           | null       |
+
+疑問点
+- 食べ物以外も表示させておく？

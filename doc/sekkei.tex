@@ -1,0 +1,78 @@
+% Created 2019-11-13 水 19:47
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Yoshiki KITAMURA}
+\date{\today}
+\title{設計仕様書（ソフトウェア）}
+\hypersetup{
+ pdfauthor={Yoshiki KITAMURA},
+ pdftitle={設計仕様書（ソフトウェア）},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{api}
+\label{sec:orgef6202d}
+自作apiを用いる。
+
+理由
+\begin{itemize}
+\item 本物のapiを使うとそもそも災害が起きないので、テストがしやすい。
+\item 存在するapiは有料であったりする。
+\end{itemize}
+
+\subsection{json format}
+\label{sec:org0569408}
+\begin{verbatim}
+{
+  "city": string,
+  "earthquake": {
+    "level": int,
+    "hoge" : string,
+  },
+  "rain": {
+    "level": int,
+    "hoge" : string,
+  },
+}
+\end{verbatim}
+
+\section{web service}
+\label{sec:org1e95792}
+保管しているものを管理する。
+flask製
+
+\begin{center}
+\begin{tabular}{ll}
+もの & 消費期限\\
+\hline
+ビスケット & 2019/11/11\\
+カップラーメン & 2020/01/24\\
+なべ & null\\
+\end{tabular}
+\end{center}
+
+疑問点
+\begin{itemize}
+\item 食べ物以外も表示させておく？
+\end{itemize}
+\end{document}
