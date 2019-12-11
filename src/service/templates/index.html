@@ -56,7 +56,18 @@
       <tbody>
 	{% for data in datas %}
 	<tr>
-	  <td>{{ data }}</td>
+	  <td>{{ data.name }}</td>
+	  <td>{{ data.date }}</td>
+	  <td>
+	    <button type="button" class="btn btn-primary btn-sm">
+	      rm
+	    </button>
+	  </td>
+	  <td>
+	    <button type="button" class="btn btn-primary btn-sm">
+	      mv
+	    </button>
+	  </td>
 	</tr>
 	{% endfor %}
       </tbody>
