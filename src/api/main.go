@@ -3,55 +3,131 @@ package main
 import (
 	"github.com/ant0ine/go-json-rest/rest"
 	"log"
-	"net/http"
 	"math/rand"
+	"net/http"
 )
 
-type postHelloInput struct {
-    City string
+type position struct {
+	City string
 }
 
-type postHelloOutput struct {
-    Level int
+type typhoon struct {
+	Temp   float64
+	Amount float64
+	Wind   float64
 }
 
-func postApi(w rest.ResponseWriter, req *rest.Request) {
-    input := postHelloInput{}
+type rain struct {
+	Temp   float64
+	Amount float64
+	Wind   float64
+}
 
-    err := req.DecodeJsonPayload(&input)
+type earthquake struct {
+	Temp   float64
+	Amount float64
+	Wind   float64
+}
 
-    if err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+func rainApi(w rest.ResponseWriter, req *rest.Request) {
+	input := position{}
 
-    if input.City == "" {
-        rest.Error(w, "City name is required", 400)
-    }
+	err := req.DecodeJsonPayload(&input)
 
-    log.Printf("%#v", input)
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-    err = w.WriteJson(postHelloOutput{
-        rand.Intn(10),
-    })
+	if input.City == "" {
+		rest.Error(w, "City name is required", 400)
+	}
 
-    if err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+	log.Printf("%#v", input)
+
+	err = w.WriteJson(rain{
+		rand.Float64(),
+		rand.Float64(),
+		rand.Float64(),
+	})
+
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func typhoonApi(w rest.ResponseWriter, req *rest.Request) {
+	input := position{}
+
+	err := req.DecodeJsonPayload(&input)
+
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if input.City == "" {
+		rest.Error(w, "City name is required", 400)
+	}
+
+	log.Printf("%#v", input)
+
+	err = w.WriteJson(typhoon{
+		rand.Float64(),
+		rand.Float64(),
+		rand.Float64(),
+	})
+
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func earthquakeApi(w rest.ResponseWriter, req *rest.Request) {
+	input := position{}
+
+	err := req.DecodeJsonPayload(&input)
+
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if input.City == "" {
+		rest.Error(w, "City name is required", 400)
+	}
+
+	log.Printf("%#v", input)
+
+	err = w.WriteJson(earthquake{
+		rand.Float64(),
+		rand.Float64(),
+		rand.Float64(),
+	})
+
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func main() {
-    api := rest.NewApi()
-    api.Use(rest.DefaultDevStack...)
-    router, err := rest.MakeRouter(
-        rest.Post("/api", postApi),
-    )
+    log.Printf("[+] Server is starting...")
+	api := rest.NewApi()
+	api.Use(rest.DefaultDevStack...)
+    
+	router, err := rest.MakeRouter(
+		rest.Post("/typhoon", typhoonApi),
+        rest.Post("/rain", rainApi),
+        rest.Post("/earthquake", earthquakeApi),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    if err != nil {
-        log.Fatal(err)
-    }
-    log.Printf("[+] Server started...")
-    api.SetApp(router)
-    log.Fatal(http.ListenAndServe(":9999", api.MakeHandler()))
+	api.SetApp(router)
+    log.Printf("[+] Server is started!")
+	log.Fatal(http.ListenAndServe(":9999", api.MakeHandler()))
 }
