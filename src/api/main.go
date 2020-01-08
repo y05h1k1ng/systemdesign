@@ -7,44 +7,27 @@ import (
 	"net/http"
 )
 
-type position struct {
-	City string
-}
-
-type typhoon struct {
-	Temp   float64
-	Amount float64
-	Wind   float64
+type tsunami struct {
+	Type   string
+    Level  int
 }
 
 type rain struct {
-	Temp   float64
-	Amount float64
-	Wind   float64
+    Type   string
+    Level  int
 }
 
 type earthquake struct {
-	Temp   float64
-	Amount float64
-	Wind   float64
+    Type string
+    Level int
+}
+
+type volcano struct {
+    Type string
+    Level int
 }
 
 func rainApi(w rest.ResponseWriter, req *rest.Request) {
-	input := position{}
-
-	err := req.DecodeJsonPayload(&input)
-
-	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if input.City == "" {
-		rest.Error(w, "City name is required", 400)
-	}
-
-	log.Printf("%#v", input)
-
 	err = w.WriteJson(rain{
 		rand.Float64(),
 		rand.Float64(),
@@ -57,22 +40,7 @@ func rainApi(w rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-func typhoonApi(w rest.ResponseWriter, req *rest.Request) {
-	input := position{}
-
-	err := req.DecodeJsonPayload(&input)
-
-	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if input.City == "" {
-		rest.Error(w, "City name is required", 400)
-	}
-
-	log.Printf("%#v", input)
-
+func tsunamiApi(w rest.ResponseWriter, req *rest.Request) {
 	err = w.WriteJson(typhoon{
 		rand.Float64(),
 		rand.Float64(),
@@ -86,22 +54,19 @@ func typhoonApi(w rest.ResponseWriter, req *rest.Request) {
 }
 
 func earthquakeApi(w rest.ResponseWriter, req *rest.Request) {
-	input := position{}
-
-	err := req.DecodeJsonPayload(&input)
+	err = w.WriteJson(earthquake{
+		rand.Float64(),
+		rand.Float64(),
+		rand.Float64(),
+	})
 
 	if err != nil {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	if input.City == "" {
-		rest.Error(w, "City name is required", 400)
-	}
-
-	log.Printf("%#v", input)
-
-	err = w.WriteJson(earthquake{
+}
+func volcanoApi(w rest.ResponseWriter, req *rest.Request) {
+	err = w.WriteJson(rain{
 		rand.Float64(),
 		rand.Float64(),
 		rand.Float64(),
@@ -119,9 +84,10 @@ func main() {
 	api.Use(rest.DefaultDevStack...)
     
 	router, err := rest.MakeRouter(
-		rest.Post("/typhoon", typhoonApi),
-        rest.Post("/rain", rainApi),
-        rest.Post("/earthquake", earthquakeApi),
+		rest.Get("/tsunami", tsunamiApi),
+        rest.Get("/rain", rainApi),
+        rest.Get("/earthquake", earthquakeApi),
+        rest.Get("/volcano", volcanoApi),
 	)
 	if err != nil {
 		log.Fatal(err)
