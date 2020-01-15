@@ -30,8 +30,8 @@ def main():
         api = random.choice(apis)
         r = requests.get(url+api, headers=header)
         res = r.json()
-        print("[*] response :", res)
-        if res['level'] >= 3:
+        print("[*] api response({}) : {}", api, res)
+        if api == "/earthquake":
             print("[!] type: {}, level: {}".format(res['type'], res['level']))
             print("    if you want to stop, you shold push the button")
             light_on(True)
@@ -39,7 +39,15 @@ def main():
                 light_off(False)
             print("[*] you pushed the button")
             light_off(True)
-        time.sleep(1)
+        elif res['level'] >= 3:
+            print("[!] type: {}, level: {}".format(res['type'], res['level']))
+            print("    if you want to stop, you shold push the button")
+            light_on(True)
+            while GPIO.input(40) != GPIO.HIGH:
+                light_off(False)
+            print("[*] you pushed the button")
+            light_off(True)
+        time.sleep(5)
 
 if __name__=="__main__":
     main()
