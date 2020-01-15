@@ -82,7 +82,7 @@ def main():
             print("    if you want to stop, you shold push the button")
             light_on(True)
             while GPIO.input(40) != GPIO.HIGH:
-                play("地震5.mp3")
+                alarm("地震5.mp3")
                 light_off(False)
             print("[*] you pushed the button")
             light_off(True)
@@ -92,7 +92,7 @@ def main():
             print("    if you want to stop, you shold push the button")
             light_on(True)
             while GPIO.input(40) != GPIO.HIGH:
-                play("地震5.mp3")
+                alarm("地震5.mp3")
                 light_off(False)
             print("[*] you pushed the button")
             light_off(True)
