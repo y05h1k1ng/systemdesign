@@ -10,7 +10,7 @@ header = {"content-type": "application/json"}
 rains = ["大雨", "洪水", "暴風"]
 tsunami = ["津波注意報", "津波警報", "大津波警報"]
 earthquake = ["4", "5弱", "5強", "6弱", "6強", "7"]
-apis = ["/rain", "/tsunami", "earthquake", "volcano"]
+apis = ["/rain", "/tsunami", "/earthquake", "/volcano"]
 
 
 GPIO.setmode(GPIO.BOARD)
