@@ -1,5 +1,6 @@
 import pygame as pg
-from pg.locals import *
+from mutage.mp3 import MP3 as MP3
+from pygame.locals import *
 import RPi.GPIO as GPIO
 import requests
 import json
@@ -14,7 +15,6 @@ tsunami = ["津波注意報", "津波警報", "大津波警報"]
 earthquake = ["4", "5弱", "5強", "6弱", "6強", "7"]
 apis = ["/rain", "/tsunami", "/earthquake", "/volcano"]
 
-
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(38, GPIO.OUT)
 GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -24,6 +24,20 @@ screen = pg.display.set_mode((800, 480))
 pg.display.set_caption("Full Menu")
 enfont = pg.font.SysFont(None, 50)
 jpfont = pg.font.SysFont("Droid Sans Fallback", 30)
+
+def play_music(filename):
+    pg.mixer.init()
+    pg.mixer.music.load(filename)
+    mp3_length = mp3(filename).info.length()
+    pg.mixer.music.play(1)
+    time.sleep(mp3_length + 0.01)
+    pg.mixer.music.stop()
+    return
+
+def alarm(filename):
+    for _ in range(2):
+        play_music("siren.mp3")
+    play_music(filename)
 
 def light_off(button):
     if button:
@@ -68,6 +82,7 @@ def main():
             print("    if you want to stop, you shold push the button")
             light_on(True)
             while GPIO.input(40) != GPIO.HIGH:
+                play("地震5.mp3")
                 light_off(False)
             print("[*] you pushed the button")
             light_off(True)
@@ -77,6 +92,7 @@ def main():
             print("    if you want to stop, you shold push the button")
             light_on(True)
             while GPIO.input(40) != GPIO.HIGH:
+                play("地震5.mp3")
                 light_off(False)
             print("[*] you pushed the button")
             light_off(True)
