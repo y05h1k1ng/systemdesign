@@ -31,7 +31,7 @@ def play_music(filename):
     mp3_length = MP3(filename).info.length
     pg.mixer.music.play(1)
     time.sleep(mp3_length + 0.01)
-    GPIO.add_event_detect(40, GPIO.FALLING, callback=pg.mixer.music.stop, bouncetime=3000)
+    GPIO.add_event_detect(40, GPIO.FALLING, callback=stop_music, bouncetime=3000)
     pg.mixer.music.stop()
     return
 
@@ -70,8 +70,16 @@ def create_screen(api, res, isWarning):
     pg.display.update()
     return
 
+
+isContinue = True
+
+def stop_music():
+    if pg.mixer.music.get_busy():
+        pg.mixer.music.stop()
+        isContinue = False
+
 def main():
-    while True:
+    while isContinue:
         api = random.choice(apis)
         r = requests.get(url+api, headers=header)
         res = r.json()
