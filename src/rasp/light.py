@@ -27,6 +27,7 @@ def main():
     while True:
         r = requests.get(url+"/rain", headers=header)
         res = r.json()
+        print("[*] response :", res)
         if res['level'] >= 2:
             print("[!] type: {}, level: {}".format(res['type'], res['level']))
             print("    if you want to stop, you shold push the button")
