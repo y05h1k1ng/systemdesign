@@ -28,7 +28,7 @@ jpfont = pg.font.SysFont("Droid Sans Fallback", 30)
 def play_music(filename):
     pg.mixer.init()
     pg.mixer.music.load(filename)
-    mp3_length = MP3(filename).info.length()
+    mp3_length = MP3(filename).info.length
     pg.mixer.music.play(1)
     time.sleep(mp3_length + 0.01)
     pg.mixer.music.stop()
