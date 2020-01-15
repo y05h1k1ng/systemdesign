@@ -12,16 +12,16 @@ earthquake = ["4", "5弱", "5強", "6弱", "6強", "7"]
 
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(38, GPIIO.OUT)
+GPIO.setup(38, GPIO.OUT)
 GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 def light_off(button):
     if button:
-        GPIO.output(38, GPIO.HIGH)
+        GPIO.output(38, GPIO.LOW)
 
 def light_on(button):
     if button:
-        GPIO.output(38, GPIO.LOW)
+        GPIO.output(38, GPIO.HIGH)
 
 def main():
     while True:
@@ -34,6 +34,7 @@ def main():
             light_on(True)
             while GPIO.input(40) != GPIO.HIGH:
                 light_off(False)
+            print("[*] you pushed the button")
             light_off(True)
         time.sleep(1)
 
