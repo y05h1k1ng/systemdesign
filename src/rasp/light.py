@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import requests
 import json
 import time
+import random
 
 url = "http://localhost:8888"
 header = {"content-type": "application/json"}
@@ -9,6 +10,7 @@ header = {"content-type": "application/json"}
 rains = ["大雨", "洪水", "暴風"]
 tsunami = ["津波注意報", "津波警報", "大津波警報"]
 earthquake = ["4", "5弱", "5強", "6弱", "6強", "7"]
+apis = ["/rain", "/tsunami", "earthquake", "volcano"]
 
 
 GPIO.setmode(GPIO.BOARD)
@@ -25,10 +27,19 @@ def light_on(button):
 
 def main():
     while True:
-        r = requests.get(url+"/rain", headers=header)
+        api = random.choice(apis)
+        r = requests.get(url+api, headers=header)
         res = r.json()
         print("[*] response :", res)
-        if res['level'] >= 2:
+        if len(res) == 1:
+            print("[!] type: {}".format(res['type']))
+            print("    if you want to stop, you shold push the button")
+            light_on(True)
+            while GPIO.input(40) != GPIO.HIGH:
+                light_off(False)
+            print("[*] you pushed the button")
+            light_off(True)
+        elif res['level'] >= 3:
             print("[!] type: {}, level: {}".format(res['type'], res['level']))
             print("    if you want to stop, you shold push the button")
             light_on(True)
