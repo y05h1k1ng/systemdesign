@@ -31,15 +31,7 @@ def main():
         r = requests.get(url+api, headers=header)
         res = r.json()
         print("[*] response :", res)
-        if len(res) == 1:
-            print("[!] type: {}".format(res['type']))
-            print("    if you want to stop, you shold push the button")
-            light_on(True)
-            while GPIO.input(40) != GPIO.HIGH:
-                light_off(False)
-            print("[*] you pushed the button")
-            light_off(True)
-        elif res['level'] >= 3:
+        if res['level'] >= 3:
             print("[!] type: {}, level: {}".format(res['type'], res['level']))
             print("    if you want to stop, you shold push the button")
             light_on(True)

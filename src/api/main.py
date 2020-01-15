@@ -11,7 +11,7 @@ earthquake = ["4", "5弱", "5強", "6弱", "6強", "7"]
 @app.route('/tsunami', methods=['GET'])
 def tsunami_api():
     types = random.choice(tsunami)
-    output = {"type": types}
+    output = {"type": types, "level": 5}
     return json.dumps(output)
 
 @app.route('/rain', methods=['GET'])
@@ -24,7 +24,7 @@ def rain_api():
 @app.route('/earthquake', methods=['GET'])
 def earthquake_api():
     types = random.choice(earthquake)
-    output = {"level": types}
+    output = {"type": "", "level": types}
     return json.dumps(output)
 
 @app.route('/volcano', methods=['GET'])
