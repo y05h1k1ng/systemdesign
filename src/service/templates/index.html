@@ -61,9 +61,12 @@
 	  <td>{{ data.name }}</td>
 	  <td>{{ data.date }}</td>
 	  <td>
-	    <button type="button" class="btn btn-primary btn-sm">
-	      削除
-	    </button>
+	    <form action="/remove", method="POST">
+	      <button type="button" class="btn btn-primary btn-sm" name="rm_id" value={{ data.id }}>
+		削除
+	      </button>
+	      <!--https://stackoverflow.com/questions/23331646/bootstrap-form-how-to-use-with-post-->
+	    </form>
 	  </td>
 	  <td>
 	    <button type="button" class="btn btn-primary btn-sm">
