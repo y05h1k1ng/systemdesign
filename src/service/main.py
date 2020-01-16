@@ -26,7 +26,9 @@ def index():
 def remove():
     conn = sqlite3.connect('./database/datas.db')
     c = conn.cursor()
-    c.execute('DELETE FROM lists WHERE name=(?)', request.form[''])
+    c.execute('DELETE FROM lists WHERE id=(?)', request.form['id'])
+    conn.commit()
+    return redirect(url_for('index'))
 
 
 @app.route('/edit', methods=['POST'])
