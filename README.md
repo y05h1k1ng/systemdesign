@@ -32,10 +32,10 @@ src
 #### main.py
 - flask製
 - 雨、津波、地震、火山の4つの警報情報
--- `/tunami`
--- `/rain`
--- `/earthquake`
--- `/volcano`
+  - `/tunami`
+  - `/rain`
+  - `/earthquake`
+  - `/volcano`
 
 jsonで返す。
 jsonの中身は警報の種類と強さ的な意味のlevel(ランダム)になってる。
