@@ -18,6 +18,10 @@ apis = ["/rain", "/tsunami", "/earthquake", "/volcano"]
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(38, GPIO.OUT)
 GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(35, GPIO.OUT)
+GPIO.setup(36, GPIO.OUT)
+GPIO.output(35, GPIO.HIGH)
+GPIO.output(36, GPIO.HIGH)
 
 pg.init()
 screen = pg.display.set_mode((800, 480))
