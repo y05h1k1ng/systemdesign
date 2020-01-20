@@ -90,7 +90,7 @@ def main():
         print("[*] api response({}) : {}".format(api, res))
 
         if api == "/earthquake":
-            create_screen(api, res, True)
+#            create_screen(api, res, True)
             print("[!] type: {}, level: {}".format(res['type'], res['level']))
             print("    if you want to stop, you shold push the button")
             light_on(True)
@@ -100,7 +100,7 @@ def main():
             print("[*] you pushed the button")
             light_off(True)
         elif res['level'] >= 3:
-            create_screen(api, res, True)
+#            create_screen(api, res, True)
             print("[!] type: {}, level: {}".format(res['type'], res['level']))
             print("    if you want to stop, you shold push the button")
             light_on(True)
@@ -110,8 +110,10 @@ def main():
             print("[*] you pushed the button")
             light_off(True)
         else:
-            create_screen(api, res, False)
-        time.sleep(5)
+            time.sleep(5)
+#            create_screen(api, res, False)
+            
+        
 
 if __name__=="__main__":
     main()
