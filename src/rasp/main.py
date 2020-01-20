@@ -35,7 +35,7 @@ def play_music(filename):
     mp3_length = MP3(filename).info.length
     pg.mixer.music.play(1)
     time.sleep(mp3_length + 0.01)
-    GPIO.add_event_detect(40, GPIO.FALLING, callback=stop_music, bouncetime=3000)
+#    GPIO.add_event_detect(40, GPIO.FALLING, callback=stop_music, bouncetime=3000)
     pg.mixer.music.stop()
     return
 
